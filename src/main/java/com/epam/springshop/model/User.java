@@ -6,13 +6,13 @@ import lombok.Data;
 @Builder
 @Data
 public class User{
-    long id;
-    String login;
-    String name;
-    String surname;
-    int phone_number;
-    String email;
-    String locale;
-    Role role;
-    String password;
+    private    long id;
+    private String login;
+    private  String name;
+    private String surname;
+    private  int phone_number;
+    private  String email;
+    private String locale;
+    private Role role;
+    private String password;
 }

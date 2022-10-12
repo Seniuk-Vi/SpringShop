@@ -1,12 +1,16 @@
 package com.epam.springshop.controller;
 
 import com.epam.springshop.dto.UserDto;
+import com.epam.springshop.dto.group.OnCreate;
 import com.epam.springshop.model.User;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -15,27 +19,27 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto){
-        System.out.println(userDto);
+    public UserDto createUser(@RequestBody @Validated(OnCreate.class) UserDto userDto) {
+        log.info(this.getClass() + ": method ==> createUser");
         return userService.createUser(userDto);
 
     }
 
     @GetMapping("/{userId}")
-    public UserDto getUser(@PathVariable long userId){
-        System.out.println(userId);
+    public UserDto getUser(@PathVariable long userId) {
+        log.info(String.format("%s : method ==> createUser(%s)", this.getClass().getName(), userId));
         return userService.getUser(userId);
     }
 
     @PutMapping
-    public UserDto updateUser(@RequestBody UserDto userDto){
-        System.out.println(userDto);
+    public UserDto updateUser(@RequestBody UserDto userDto) {
+        log.info(String.format("%s : method ==> updateUser(%s)", this.getClass().getName(), userDto));
         return userService.updateUser(userDto);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestParam long userId){
-        System.out.println(userId);
+    public ResponseEntity<Void> deleteUser(@RequestParam long userId) {
+        log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), userId));
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }

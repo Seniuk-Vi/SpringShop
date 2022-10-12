@@ -53,14 +53,41 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    public UserDto getUserByLogin(String obj) {
+        User user = userRepoImpl.readWithLogin(obj);
+        return  UserDto.builder()
+                .id(user.getId())
+                .login(user.getLogin())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .phone_number(user.getPhone_number())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .role(user.getRole().getRole())
+                .locale(user.getLocale())
+                .build();
+    }
+
     @Override
     public UserDto updateUser(UserDto obj) {
-
-        return null;
+        User user= userRepoImpl.read(obj.getId());
+        user.setName(obj.getName());
+        user.setPhone_number(obj.getPhone_number());
+        userRepoImpl.update(user);
+        return  UserDto.builder()
+                .id(user.getId())
+                .login(user.getLogin())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .phone_number(user.getPhone_number())
+                .email(user.getEmail())
+                .role(user.getRole().getRole())
+                .locale(user.getLocale())
+                .build();
     }
 
     @Override
     public void deleteUser(Long obj) {
-
+        userRepoImpl.delete(obj);
     }
 }
