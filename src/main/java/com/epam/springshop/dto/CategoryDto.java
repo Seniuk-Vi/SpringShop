@@ -6,5 +6,5 @@ import lombok.Data;
 @Builder
 @Data
 public class CategoryDto {
-    String categoryName;
+    String category;
 }

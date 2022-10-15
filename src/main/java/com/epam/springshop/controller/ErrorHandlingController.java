@@ -25,7 +25,7 @@ public class ErrorHandlingController {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Error handleException(ServiceException ex, HandlerMethod hm){
+    public Error handleException(Exception ex, HandlerMethod hm){
         log.error("handleServiceException: message: {}, method: {}",ex.getMessage(),hm.getMethod().getName(),ex);
         return new Error(ex.getMessage(), ErrorType.FATAL_ERROR_TYPE, LocalDateTime.now());
     }

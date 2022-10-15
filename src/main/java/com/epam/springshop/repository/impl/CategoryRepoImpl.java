@@ -6,6 +6,7 @@ import com.epam.springshop.repository.Repo;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Component
 public class CategoryRepoImpl implements Repo<Category> {
@@ -14,13 +15,18 @@ public class CategoryRepoImpl implements Repo<Category> {
     @Override
     public Category create(Category obj) {
         obj.setId(++idCounter);
-        obj.setCategoryName(obj.getCategoryName());
+        obj.setCategory(obj.getCategory());
         categoryMap.put(idCounter,obj);
         return obj;
     }
 
     @Override
     public Category read(Long field) {
+        return null;
+    }
+
+    @Override
+    public List<Category> readAll() {
         return null;
     }
 

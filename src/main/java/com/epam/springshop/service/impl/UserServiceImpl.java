@@ -1,11 +1,14 @@
 package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.UserDto;
+import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.model.User;
 import com.epam.springshop.repository.impl.UserRepoImpl;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,75 +18,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = userRepoImpl.create(User.builder()
-                .login(userDto.getLogin())
-                .name(userDto.getName())
-                .surname(userDto.getSurname())
-                .phone_number(userDto.getPhone_number())
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .locale(userDto.getLocale())
-                .build());
-        return UserDto.builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .phone_number(user.getPhone_number())
-                .email(user.getEmail())
-                .role(user.getRole().getRole())
-                .password(user.getPassword())
-                .locale(user.getLocale())
-                .build();
+        User user = userRepoImpl.create(UserMapper.INSTANCE.mapUser(userDto));
+        return UserMapper.INSTANCE.mapUserDto(user);
     }
 
     @Override
     public UserDto getUser(Long obj) {
         User user = userRepoImpl.read(obj);
-        return  UserDto.builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .phone_number(user.getPhone_number())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .role(user.getRole().getRole())
-                .locale(user.getLocale())
-                .build();
+        return UserMapper.INSTANCE.mapUserDto(user);
+    }
+
+    public List<UserDto> getAllUsers() {
+        return UserMapper.INSTANCE.mapUserDtos(userRepoImpl.readAll());
     }
 
     public UserDto getUserByLogin(String obj) {
         User user = userRepoImpl.readWithLogin(obj);
-        return  UserDto.builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .phone_number(user.getPhone_number())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .role(user.getRole().getRole())
-                .locale(user.getLocale())
-                .build();
+        return UserMapper.INSTANCE.mapUserDto(user);
     }
 
     @Override
     public UserDto updateUser(UserDto obj) {
-        User user= userRepoImpl.read(obj.getId());
+        User user = userRepoImpl.read(obj.getId());
         user.setName(obj.getName());
         user.setPhone_number(obj.getPhone_number());
         userRepoImpl.update(user);
-        return  UserDto.builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .phone_number(user.getPhone_number())
-                .email(user.getEmail())
-                .role(user.getRole().getRole())
-                .locale(user.getLocale())
-                .build();
+        return UserMapper.INSTANCE.mapUserDto(user);
     }
 
     @Override

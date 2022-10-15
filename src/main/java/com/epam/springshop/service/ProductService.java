@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    public ProductDto createProduct(ProductDto obj);
-    public ProductDto getProduct(Long obj);
-    public List<ProductDto> getProducts();
-    public ProductDto updateProduct(ProductDto obj);
-    public void deleteProduct(Long obj);
+     ProductDto createProduct(ProductDto obj);
+     ProductDto getProduct(Long obj);
+     List<ProductDto> getProducts();
+     ProductDto updateProduct(ProductDto obj);
+     void deleteProduct(Long obj);
 }

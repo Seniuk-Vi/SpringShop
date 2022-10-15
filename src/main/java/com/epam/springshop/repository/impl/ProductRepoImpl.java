@@ -2,11 +2,13 @@ package com.epam.springshop.repository.impl;
 
 import com.epam.springshop.model.Category;
 import com.epam.springshop.model.Product;
+import com.epam.springshop.model.User;
 import com.epam.springshop.repository.Repo;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -27,19 +29,18 @@ public class ProductRepoImpl implements Repo<Product> {
     public Product read(Long field) {
         return productMap.get(field);
     }
-    public Collection<Product> readAll() {
-        return  productMap.values();
+    public List<Product> readAll() {
+        return  productMap.values().stream().toList();
     }
     @Override
     public Product update(Product obj) {
-        delete(obj.getId());
-        create(obj);
-        return obj;
+        Product product = read(obj.getId());
+        product = obj;
+        return product;
     }
 
     @Override
     public void delete(Long field) {
         productMap.remove(field);
-
     }
 }

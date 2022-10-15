@@ -18,7 +18,7 @@ public class UserRepoImpl implements Repo<User> {
     @Override
     public User create(User obj) {
         obj.setId(++idCounter);
-        obj.setRole(roleRepo.create(Role.builder().build()));
+//        obj.setRole(roleRepo.create(Role.builder().build()));
         users.put(idCounter, obj);
         return obj;
     }
@@ -32,6 +32,11 @@ public class UserRepoImpl implements Repo<User> {
         return users.get(field);
     }
 
+    @Override
+    public List<User> readAll() {
+        return new ArrayList<User>(users.values());
+    }
+
     public User readWithLogin(String field) {
         return users.values().stream()
                 .filter(user1 -> user1.getLogin().equals(field))
@@ -40,9 +45,9 @@ public class UserRepoImpl implements Repo<User> {
 
     @Override
     public User update(User obj) {
-        delete(obj.getId());
-        create(obj);
-        return obj;
+        User user = read(obj.getId());
+        user = obj;
+        return user;
     }
 
     @Override

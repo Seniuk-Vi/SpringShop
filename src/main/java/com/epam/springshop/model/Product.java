@@ -11,10 +11,10 @@ public class Product {
     long id;
     String title;
     String description;
-    double price;
+    Double price;
     String image_url;
-    Date model_year;
-    int in_stock;
+    Date post_date;
+    Integer in_stock;
     Category category;
 
 }

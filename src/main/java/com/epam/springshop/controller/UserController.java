@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -22,7 +24,6 @@ public class UserController {
     public UserDto createUser(@RequestBody @Validated(OnCreate.class) UserDto userDto) {
         log.info(this.getClass() + ": method ==> createUser");
         return userService.createUser(userDto);
-
     }
 
     @GetMapping("/{userId}")
@@ -31,14 +32,19 @@ public class UserController {
         return userService.getUser(userId);
     }
 
-    @PutMapping
+    @GetMapping("/{userId}/users")  // check admin
+    public List<UserDto> getUsers() {
+        log.info(String.format("%s : method ==> getUsers()", this.getClass().getName()));
+        return userService.getAllUsers();
+    }
+    @PutMapping("/{userId}")    // check user
     public UserDto updateUser(@RequestBody UserDto userDto) {
         log.info(String.format("%s : method ==> updateUser(%s)", this.getClass().getName(), userDto));
         return userService.updateUser(userDto);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestParam long userId) {
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long userId) {
         log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), userId));
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();

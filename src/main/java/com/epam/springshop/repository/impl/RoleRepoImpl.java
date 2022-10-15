@@ -5,6 +5,7 @@ import com.epam.springshop.repository.Repo;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Component
 public class RoleRepoImpl implements Repo<Role> {
@@ -20,6 +21,11 @@ public class RoleRepoImpl implements Repo<Role> {
 
     @Override
     public Role read(Long field) {
+        return null;
+    }
+
+    @Override
+    public List<Role> readAll() {
         return null;
     }
 

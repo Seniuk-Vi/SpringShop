@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class Order {
     long id;
-    long user_id;
+    User user;
     long status;
     Date order_date;
     List<OrderItem> orderItems;
