@@ -11,7 +11,7 @@ import java.util.List;
 public class Order {
     long id;
     User user;
-    long status;
-    Date order_date;
-    List<OrderItem> orderItems;
+    Status status;
+    Date orderDate;
+   // List<OrderItem> orderItems;
 }

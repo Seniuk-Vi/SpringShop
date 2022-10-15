@@ -5,6 +5,7 @@ import com.epam.springshop.model.Role;
 import com.epam.springshop.repository.Repo;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,17 +23,19 @@ public class CategoryRepoImpl implements Repo<Category> {
 
     @Override
     public Category read(Long field) {
-        return null;
+        return categoryMap.get(field);
     }
 
     @Override
     public List<Category> readAll() {
-        return null;
+        return (ArrayList<Category>)categoryMap.values();
     }
 
     @Override
     public Category update(Category obj) {
-        return null;
+        Category category = read(obj.getId());
+        category.setCategory(obj.getCategory());
+        return category;
     }
 
     @Override

@@ -25,16 +25,12 @@ public class UserRepoImpl implements Repo<User> {
 
     @Override
     public User read(Long field) {
-        User user = users.get(field);
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
         return users.get(field);
     }
 
     @Override
     public List<User> readAll() {
-        return new ArrayList<User>(users.values());
+        return new ArrayList<>(users.values());
     }
 
     public User readWithLogin(String field) {
@@ -46,7 +42,8 @@ public class UserRepoImpl implements Repo<User> {
     @Override
     public User update(User obj) {
         User user = read(obj.getId());
-        user = obj;
+        user.setName(obj.getName());
+        user.setSurname(obj.getSurname());
         return user;
     }
 

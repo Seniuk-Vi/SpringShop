@@ -20,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto obj) {
+        // todo check if category exists
         Product product=productRepo.create(ProductMapper.INSTANCE.mapProduct(obj));
         return ProductMapper.INSTANCE.mapProductDto(product);
     }
@@ -38,9 +39,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto updateProduct(ProductDto obj) {
-        Product product = productRepo.read(obj.getId());
-        product.setTitle(obj.getTitle());
-        product.setIn_stock(obj.getIn_stock());
         Product product2 = productRepo.update(ProductMapper.INSTANCE.mapProduct(obj));
         return ProductMapper.INSTANCE.mapProductDto(product2);
     }

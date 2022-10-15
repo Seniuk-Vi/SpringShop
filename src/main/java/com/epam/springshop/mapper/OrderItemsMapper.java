@@ -8,6 +8,7 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+
 @Mapper
 
 public interface OrderItemsMapper {
@@ -18,7 +19,8 @@ public interface OrderItemsMapper {
 
     List<OrderItemDto> mapOrderItemDtos(List<OrderItem> orderItems);
 
-    @Mappings(@Mapping(source = "product.id", target = "productId"))
+    @Mappings({@Mapping(source = "product.id", target = "productId"),
+             @Mapping(source = "order.id", target = "orderId")})
     OrderItemDto mapOrderItemDto(OrderItem orderItem);
 
     OrderItem mapOrderItem(OrderItemDto orderItemDto);

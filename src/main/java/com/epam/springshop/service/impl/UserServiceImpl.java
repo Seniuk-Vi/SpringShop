@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
+        // todo check if role exists
         User user = userRepoImpl.create(UserMapper.INSTANCE.mapUser(userDto));
         return UserMapper.INSTANCE.mapUserDto(user);
     }
@@ -39,10 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto obj) {
-        User user = userRepoImpl.read(obj.getId());
-        user.setName(obj.getName());
-        user.setPhone_number(obj.getPhone_number());
-        userRepoImpl.update(user);
+        User user = userRepoImpl.update(UserMapper.INSTANCE.mapUser(obj));
         return UserMapper.INSTANCE.mapUserDto(user);
     }
 

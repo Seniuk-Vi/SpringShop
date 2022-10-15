@@ -11,8 +11,8 @@ import java.util.List;
 @Data
 public class OrderDto {
     long id;
-    long user_id;
-    long status;
-    Date order_date;
-    List<OrderItem> orderItems;
+    long userId;
+    String status;
+    Date orderDate;
+    List<OrderItemDto> orderItems;
 }

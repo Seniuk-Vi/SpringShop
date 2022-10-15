@@ -1,9 +1,16 @@
 package com.epam.springshop.repository.impl;
 
+import com.epam.springshop.dto.CategoryDto;
+import com.epam.springshop.mapper.CategoryMapper;
 import com.epam.springshop.model.Category;
 import com.epam.springshop.model.Product;
 import com.epam.springshop.model.User;
 import com.epam.springshop.repository.Repo;
+import com.epam.springshop.service.CategoryService;
+import com.epam.springshop.service.RoleService;
+import com.epam.springshop.service.UserService;
+import lombok.AllArgsConstructor;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -12,15 +19,18 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@AllArgsConstructor
 public class ProductRepoImpl implements Repo<Product> {
 
     private final Map<Number,Product> productMap = new HashMap<>();
-    Repo<Category> categoryRepo = new CategoryRepoImpl(); // better make roleService
-    long idCounter=0;
+    private final CategoryService categoryService;
+
+    private static long idCounter=0;
     @Override
     public Product create(Product obj) {
         obj.setId(++idCounter);
-        obj.setCategory(categoryRepo.create(obj.getCategory()));
+        CategoryDto categoryDto = categoryService.createCategory(CategoryMapper.INSTANCE.mapCategoryDto(obj.getCategory()));
+        obj.setCategory(CategoryMapper.INSTANCE.mapCategory(categoryDto));
         productMap.put(idCounter,obj);
         return obj;
     }
@@ -35,7 +45,8 @@ public class ProductRepoImpl implements Repo<Product> {
     @Override
     public Product update(Product obj) {
         Product product = read(obj.getId());
-        product = obj;
+        product.setTitle(obj.getTitle());
+        product.setIn_stock(obj.getIn_stock());
         return product;
     }
 
