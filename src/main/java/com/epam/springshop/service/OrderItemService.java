@@ -10,6 +10,7 @@ public interface OrderItemService {
      OrderItemDto createOrderItem(OrderItemDto obj);
      OrderItemDto getOrderItem(Long obj);
      List<OrderItemDto> getAllOrderItems();
+     List<OrderItemDto> getAllOrderItems(long obj);
      OrderItemDto updateOrderItem(OrderItemDto obj);
      void deleteOrderItem(Long obj);
 }

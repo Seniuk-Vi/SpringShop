@@ -9,6 +9,7 @@ public interface OrderService {
     OrderDto createOrder(OrderDto obj);
     OrderDto getOrder(Long obj);
     List<OrderDto> getAllOrders();
+    List<OrderDto> getAllOrders(Long obj);
     OrderDto updateOrder(OrderDto obj);
     void deleteOrder(Long obj);
 }
