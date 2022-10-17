@@ -2,6 +2,7 @@ package com.epam.springshop.controller;
 
 import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.dto.group.OnCreate;
+import com.epam.springshop.dto.group.OnUpdate;
 import com.epam.springshop.model.User;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Slf4j
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserDto getUser(@PathVariable long userId) {
+    public UserDto getUser(@PathVariable @NotBlank long userId) {
         log.info(String.format("%s : method ==> createUser(%s)", this.getClass().getName(), userId));
         return userService.getUser(userId);
     }
@@ -38,13 +40,13 @@ public class UserController {
         return userService.getAllUsers();
     }
     @PutMapping("/{userId}")    // check user
-    public UserDto updateUser(@RequestBody UserDto userDto) {
+    public UserDto updateUser(@RequestBody @Validated(OnUpdate.class) UserDto userDto) {
         log.info(String.format("%s : method ==> updateUser(%s)", this.getClass().getName(), userDto));
         return userService.updateUser(userDto);
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable long userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable @NotBlank long userId) {
         log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), userId));
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();

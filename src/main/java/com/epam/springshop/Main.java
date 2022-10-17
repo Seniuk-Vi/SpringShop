@@ -1,6 +1,7 @@
 package com.epam.springshop;
 
 import com.epam.springshop.model.Role;
+import com.epam.springshop.model.enums.StatusEnum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,5 +14,6 @@ public class Main {
         System.out.println(m.get(4));
         r = new Role(1, "new role");
         System.out.println(m.get(4));
+        StatusEnum statusEnum = StatusEnum.CREATED;
     }
 }

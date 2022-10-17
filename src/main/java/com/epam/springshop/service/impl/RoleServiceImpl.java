@@ -35,6 +35,17 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public RoleDto getRole(String obj) {
+        log.info(String.format("%s : method ==> getRole(%s)", this.getClass().getName(),obj));
+        for (Role role : roleRepo.readAll()) {
+            if (role.getRole().equals(obj)){
+                return RoleMapper.INSTANCE.roleDtoMapper(role);
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<RoleDto> getAllRoles() {
         log.info(String.format("%s : method ==> getAllRoles()", this.getClass().getName()));
         return RoleMapper.INSTANCE.roleDtosMapper(roleRepo.readAll());

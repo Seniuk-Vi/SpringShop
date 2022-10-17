@@ -1,6 +1,7 @@
 package com.epam.springshop.dto;
 
 import com.epam.springshop.dto.group.OnCreate;
+import com.epam.springshop.dto.group.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
@@ -14,18 +15,21 @@ import java.util.Date;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDto {
+    @NotBlank(message = "'id' shouldn't be empty",groups = OnUpdate.class)
     long id;
     @NotBlank(message = "'title' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "'title' shouldn't be empty", groups = OnUpdate.class)
     String title;
     @NotBlank(message = "'description' shouldn't be empty", groups = OnCreate.class)
     String description;
     @NotNull(message = "'price' shouldn't be empty", groups = OnCreate.class)
     Double price;
-  //  @NotBlank(message = "'image_url' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "'image_url' shouldn't be empty", groups = OnCreate.class)
     String image_url;
     @NotNull(message = "'post date' shouldn't be empty", groups = OnCreate.class)
     @JsonFormat(pattern = "yyyy-MM-dd")
     Date post_date;
+    @NotBlank(message = "'in stock' shouldn't be empty", groups = OnUpdate.class)
     @NotNull(message = "'in stock' shouldn't be empty", groups = OnCreate.class)
     Integer in_stock;
     @NotBlank(message = "'category' shouldn't be empty", groups = OnCreate.class)

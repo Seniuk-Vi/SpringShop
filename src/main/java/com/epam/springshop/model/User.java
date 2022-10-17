@@ -13,6 +13,6 @@ public class User {
     private int phone_number;
     private String email;
     private String locale;
-    private Role role;
+    private String role;
     private String password;
 }

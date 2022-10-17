@@ -8,7 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.Stack;
 
 @Mapper
 public interface StatusMapper {
@@ -17,8 +16,9 @@ public interface StatusMapper {
     List<StatusDto> statusDtosMapper(List<Status> statuses);
     Status statusMapper(String status);
     Status statusMapper(StatusDto status);
-    StatusDto statusDtoMapper(Status role);
+    StatusDto statusDtoMapper(Status status);
+    StatusDto statusDtoMapper(String status);
 
-    String statusMapper(Status role);
+    String statusMapper(Status status);
 
 }

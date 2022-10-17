@@ -6,6 +6,6 @@ import lombok.Data;
 @Builder
 @Data
 public class StatusDto {
-
     String status;
+
 }

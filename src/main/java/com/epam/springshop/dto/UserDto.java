@@ -15,11 +15,14 @@ import javax.validation.constraints.Null;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
+    @NotBlank(message = "'id' shouldn't be empty",groups = OnUpdate.class)
     long id;
     @NotBlank(message = "'login' shouldn't be empty", groups = OnCreate.class)
     String login;
+    @NotBlank(message = "'name' shouldn't be empty",groups = OnUpdate.class)
     @NotBlank(message = "'name' shouldn't be empty", groups = OnCreate.class)
     String name;
+    @NotBlank(message = "'surname' shouldn't be empty",groups = OnUpdate.class)
     @NotBlank(message = "'surname' shouldn't be empty", groups = OnCreate.class)
     String surname;
     int phone_number;
@@ -28,9 +31,9 @@ public class UserDto {
     String email;
     @NotBlank(message = "'locale' shouldn't be empty", groups = OnCreate.class)
     String locale;
-    @Null(message = "'password' should be empty",groups = OnUpdate.class)
     @NotBlank(message = "'password' shouldn't be empty", groups = OnCreate.class)
     String password;
+    @NotBlank(message = "'role' shouldn't be empty",groups = OnUpdate.class)
     @NotBlank(message = "'role' shouldn't be empty", groups = OnCreate.class)
     String role;
 }

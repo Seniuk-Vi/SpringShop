@@ -1,12 +1,8 @@
 package com.epam.springshop.repository.impl;
 
-import com.epam.springshop.exceptions.UserNotFoundException;
-import com.epam.springshop.mapper.StatusMapper;
 import com.epam.springshop.model.Order;
-import com.epam.springshop.model.Role;
 import com.epam.springshop.model.enums.StatusEnum;
 import com.epam.springshop.repository.Repo;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +20,7 @@ public class OrderRepoImpl implements Repo<Order> {
     public Order create(Order obj) {
         log.info(String.format("%s : method ==> create(%s)", this.getClass().getName(),obj));
         obj.setId(++idCounter);
-        obj.setStatus(StatusMapper.INSTANCE.statusMapper(StatusEnum.CREATED.toString()));
+        obj.setStatus(StatusEnum.CREATED);
         orders.put(idCounter, obj);
         return obj;
     }
