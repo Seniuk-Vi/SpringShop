@@ -1,5 +1,7 @@
 package com.epam.springshop.controller;
 
+import com.epam.springshop.controller.assembler.OrderAssembler;
+import com.epam.springshop.controller.model.OrderModel;
 import com.epam.springshop.dto.OrderDto;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.group.OnCreate;
@@ -20,11 +22,13 @@ import java.util.List;
 
 public class OrderController {
     private final OrderService orderService;
+    private final OrderAssembler orderAssembler;
 
     @PostMapping("/{userId}/order")
-    public OrderDto createOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto) {
+    public OrderModel createOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto) {
         log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(), orderDto));
-        return orderService.createOrder(orderDto);
+        OrderDto order =  orderService.createOrder(orderDto);
+        return orderAssembler.toModel(order);
 
     }
 
@@ -34,14 +38,17 @@ public class OrderController {
         return orderService.getAllOrders(userId);
     }
     @GetMapping("/{userId}/order/{orderId}")
-    public OrderDto getOrder(@PathVariable Long orderId) {
+    public OrderModel getOrder(@PathVariable Long orderId) {
         log.info(String.format("%s : method ==> getOrder(%s)", this.getClass().getName(),orderId));
-        return orderService.getOrder(orderId);
+        OrderDto order =   orderService.getOrder(orderId);
+        return orderAssembler.toModel(order);
+
     }
     @PutMapping("/{userId}/order/{orderId}")
-    public OrderDto updateOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto) {
+    public OrderModel updateOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto) {
         log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), orderDto));
-        return orderService.updateOrder(orderDto);
+        OrderDto order =  orderService.updateOrder(orderDto);
+        return orderAssembler.toModel(order);
     }
 
     @DeleteMapping("/{userId}/order/{orderId}")

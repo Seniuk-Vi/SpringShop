@@ -1,5 +1,7 @@
 package com.epam.springshop.controller;
 
+import com.epam.springshop.controller.assembler.ProductAssembler;
+import com.epam.springshop.controller.model.ProductModel;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.group.OnCreate;
 import com.epam.springshop.dto.group.OnUpdate;
@@ -20,12 +22,13 @@ import java.util.List;
 
 public class ProductController {
     private final ProductService productService;
+    private final ProductAssembler productAssembler;
 
     @PostMapping("/product")
-    public ProductDto createProduct(@RequestBody @Validated(OnCreate.class) ProductDto productDto) {
+    public ProductModel createProduct(@RequestBody @Validated(OnCreate.class) ProductDto productDto) {
         log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(), productDto));
-        return productService.createProduct(productDto);
-
+        ProductDto product= productService.createProduct(productDto);
+        return productAssembler.toModel(product);
     }
 
     @GetMapping
@@ -34,14 +37,16 @@ public class ProductController {
         return productService.getProducts();
     }
     @GetMapping("/product/{productId}")
-    public ProductDto getProduct(@PathVariable @NotBlank Long productId) {
+    public ProductModel getProduct(@PathVariable @NotBlank Long productId) {
         log.info(String.format("%s : method ==> getProduct()", this.getClass().getName()));
-        return productService.getProduct(productId);
+        ProductDto product=productService.getProduct(productId);
+        return productAssembler.toModel(product);
     }
     @PutMapping("/product/{productId}")
-    public ProductDto updateProduct(@RequestBody @Validated(OnUpdate.class) ProductDto productDto) {
+    public ProductModel updateProduct(@RequestBody @Validated(OnUpdate.class) ProductDto productDto) {
         log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), productDto));
-        return productService.updateProduct(productDto);
+        ProductDto product= productService.updateProduct(productDto);
+        return productAssembler.toModel(product);
     }
 
     @DeleteMapping("/product/{productId}")

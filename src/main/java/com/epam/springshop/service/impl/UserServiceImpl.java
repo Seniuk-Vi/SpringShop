@@ -20,11 +20,11 @@ public class UserServiceImpl implements UserService {
     private final RoleServiceImpl roleService;
     @Override
     public UserDto createUser(UserDto obj) {
+        log.info(String.format("%s : method ==> createUser(%s)", this.getClass().getName(),obj));
         // todo check if role exists
         if(roleService.getRole(obj.getRole())==null){
-            throw new RoleNotFoundException();
+            //throw new RoleNotFoundException();
         }
-        log.info(String.format("%s : method ==> createUser(%s)", this.getClass().getName(),obj));
         User user = userRepoImpl.create(UserMapper.INSTANCE.mapUser(obj));
         return UserMapper.INSTANCE.mapUserDto(user);
     }
