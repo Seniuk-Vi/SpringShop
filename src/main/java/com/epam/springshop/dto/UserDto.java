@@ -34,6 +34,6 @@ public class UserDto {
     @NotBlank(message = "'password' shouldn't be empty", groups = OnCreate.class)
     String password;
     @NotBlank(message = "'role' shouldn't be empty",groups = OnUpdate.class)
-    @NotBlank(message = "'role' shouldn't be empty", groups = OnCreate.class)
+    @Null(message = "'role' should be empty", groups = OnCreate.class)
     String role;
 }

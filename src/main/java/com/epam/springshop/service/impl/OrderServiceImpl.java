@@ -36,10 +36,6 @@ public class OrderServiceImpl implements OrderService {
         log.info(String.format("%s : method ==> createOrder(%s)", this.getClass().getName(), obj));
         Order order = orderRepo.create(OrderMapper.INSTANCE.mapOrder(obj));
         // todo check if status exists
-        if (Arrays.stream(StatusEnum.values()).noneMatch(x->x.equalsStatus(obj.getStatus()))) {
-            log.info(String.format("Can't find status --> %s", obj.getStatus()));
-            throw new StatusNotFoundException();
-        }
         // create orderItems
         List<OrderItemDto> orderItems = new ArrayList<>();
         for (OrderItemDto orderItem : obj.getOrderItems()) {

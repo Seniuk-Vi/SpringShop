@@ -6,6 +6,7 @@ import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
+import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -18,7 +19,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    //http:/localhost:8080/swagger-ui/index.html#/
+    //http://localhost:8080/swagger-ui/index.html#
     @Bean
     public Docket apiV1(){
         return new Docket(DocumentationType.SWAGGER_2)
