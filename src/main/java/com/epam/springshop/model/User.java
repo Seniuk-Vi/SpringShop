@@ -10,7 +10,7 @@ public class User {
     private String login;
     private String name;
     private String surname;
-    private int phone_number;
+    private String phone_number;
     private String email;
     private String locale;
     private Role role;
