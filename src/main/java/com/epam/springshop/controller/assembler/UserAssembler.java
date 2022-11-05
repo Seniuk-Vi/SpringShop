@@ -27,11 +27,11 @@ public class UserAssembler extends RepresentationModelAssemblerSupport<UserDto, 
     public UserModel toModel(UserDto entity) {
         UserModel userModel= new UserModel(entity);
         Link get = linkTo(methodOn(UserController.class).getUser(entity.getId())).withRel(GET_REL);
-        Link getUsers = linkTo(methodOn(UserController.class).getUsers()).withRel(GET_ALL_REL);
+       // Link getUsers = linkTo(methodOn(UserController.class).getUsers()).withRel(GET_ALL_REL);
         Link create = linkTo(methodOn(UserController.class).createUser(entity)).withRel(CREATE_REL);
         Link update= linkTo(methodOn(UserController.class).updateUser(entity.getId(),entity)).withRel(PUT_REL);
         Link delete= linkTo(methodOn(UserController.class).deleteUser(entity.getId())).withRel(DELETE_REL);
-        userModel.add(get,getUsers,create,update,delete);
+        userModel.add(get,create,update,delete);
         return userModel;
     }
 }

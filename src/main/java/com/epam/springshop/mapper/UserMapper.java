@@ -25,4 +25,5 @@ public interface UserMapper {
     default Role mapRole(String role) {
         return RoleMapper.INSTANCE.roleMapper(role);
     }
+
 }

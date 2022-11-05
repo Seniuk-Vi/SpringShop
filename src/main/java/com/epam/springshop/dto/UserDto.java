@@ -17,27 +17,24 @@ import javax.validation.constraints.Null;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
-    @NotBlank(message = "'id' shouldn't be empty", groups = OnUpdate.class)
     long id;
-    @NotBlank(message = "'login' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "{userdto.login.notempty}", groups = OnCreate.class)
     String login;
-    @NotBlank(message = "'name' shouldn't be empty", groups = OnUpdate.class)
-    @NotBlank(message = "'name' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "{userdto.name.notempty}", groups = {OnUpdate.class, OnCreate.class})
     String name;
-    @NotBlank(message = "'surname' shouldn't be empty", groups = OnUpdate.class)
-    @NotBlank(message = "'surname' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "{userdto.surname.notempty}", groups = {OnUpdate.class,OnCreate.class})
     String surname;
-    @PhoneNumberConstraint
+    @PhoneNumberConstraint(message = "{userdto.phonenumber.notempty}")
     String phone_number;
-    @Email(message = "{email.notempty}")
-    @NotBlank(message = "{email.notempty}", groups = OnCreate.class)
+    @Email(message = "{userdto.email.notcorrect}")
+    @NotBlank(message = "{userdto.email.notempty}", groups = OnCreate.class)
     String email;
-    @NotBlank(message = "'locale' shouldn't be empty", groups = OnCreate.class)
-    @LocaleConstraint
+    @NotBlank(message = "{userdto.locale.notempty}", groups = {OnUpdate.class,OnCreate.class})
+    @LocaleConstraint(message = "{userdto.locale.notcorrect}")
     String locale;
-    @NotBlank(message = "'password' shouldn't be empty", groups = OnCreate.class)
+    @NotBlank(message = "{userdto.password.notempty}", groups = OnCreate.class)
     String password;
-    @NotBlank(message = "'role' shouldn't be empty", groups = OnUpdate.class)
-    @Null(message = "'role' should be empty", groups = OnCreate.class)
+   // @NotBlank(message = "{userdto.role.notempty}", groups = OnUpdate.class)
+    @Null(message = "{userdto.role.empty}", groups = OnCreate.class)
     String role;
 }

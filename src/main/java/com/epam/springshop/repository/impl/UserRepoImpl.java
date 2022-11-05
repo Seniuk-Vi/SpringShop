@@ -21,7 +21,6 @@ import java.util.*;
 public class UserRepoImpl implements Repo<User> {
 
     private final Map<Number, User> users = new HashMap<>();
-    RoleRepoImpl roleRepo = new RoleRepoImpl(); // better make roleService
     private final RoleServiceImpl roleService;
     long idCounter = 0;
 

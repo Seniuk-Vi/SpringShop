@@ -43,7 +43,7 @@ public class ProductController implements ProductApi {
         return productAssembler.toModel(product);
     }
     @Override
-    public ProductModel updateProduct(Long productId,ProductDto productDto) {
+    public ProductModel updateProduct(long productId,ProductDto productDto) {
         log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), productDto));
         ProductDto product= productService.updateProduct(productDto);
         return productAssembler.toModel(product);

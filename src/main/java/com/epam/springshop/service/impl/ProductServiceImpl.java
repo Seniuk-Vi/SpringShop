@@ -1,6 +1,8 @@
 package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.ProductDto;
+import com.epam.springshop.exceptions.ProductNotFoundException;
+import com.epam.springshop.exceptions.UserNotFoundException;
 import com.epam.springshop.mapper.ProductMapper;
 import com.epam.springshop.model.Product;
 import com.epam.springshop.model.User;
@@ -31,6 +33,9 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto getProduct(Long obj) {
         log.info(String.format("%s : method ==> getProduct(%s)", this.getClass().getName(),obj));
         Product product = productRepo.read(obj);
+        if(product == null){
+            throw new ProductNotFoundException();
+        }
         return ProductMapper.INSTANCE.mapProductDto(product);
     }
 

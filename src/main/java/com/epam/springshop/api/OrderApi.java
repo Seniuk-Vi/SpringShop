@@ -21,34 +21,38 @@ import java.util.List;
 @Api(tags = "Order management API")
 
 public interface OrderApi {
-    @ApiImplicitParams({@ApiImplicitParam(name = "orderDto", paramType = "body", required = true, value = "Order object")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "orderDto", paramType = "body", required = true, value = "Order object", dataTypeClass = OrderDto.class)})
     @ApiOperation("Create order")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user/{userId}/order")
-     OrderModel createOrder(@PathVariable long userId,@RequestBody @Validated(OnCreate.class) OrderDto orderDto);
-
+    OrderModel createOrder(@PathVariable long userId, @RequestBody @Validated(OnCreate.class) OrderDto orderDto);
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", paramType = "path", required = true, value = "User id", dataTypeClass = Long.class)})
     @ApiOperation("Get user orders")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{userId}/order")
-     List<OrderDto> getOrders(@PathVariable Long userId);
+    List<OrderDto> getOrders(@PathVariable Long userId);
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "orderId", paramType = "path", required = true, value = "Order id")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", paramType = "path", required = true, value = "User id", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "orderId", paramType = "path", required = true, value = "Order id", dataTypeClass = Long.class)})
     @ApiOperation("Get order by id")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/{userId}/order/{orderId}")
-     OrderModel getOrder(@PathVariable long userId,@PathVariable Long orderId);
+    OrderModel getOrder(@PathVariable long userId, @PathVariable Long orderId);
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "orderDto", paramType = "path", required = true, value = "Order to update")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", paramType = "path", required = true, value = "User id", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "orderId", paramType = "path", required = true, value = "Order id to update", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "orderDto", paramType = "body", required = true, value = "OrderDto to update (status = [CREATED,PAYED, FINISHED])", dataTypeClass = OrderDto.class)})
     @ApiOperation("Update order")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/user/{userId}/order/{orderId}")
-     OrderModel updateOrder(@PathVariable long userId,@PathVariable long orderId,@RequestBody @Validated(OnCreate.class) OrderDto orderDto);
+    OrderModel updateOrder(@PathVariable long userId, @PathVariable long orderId, @RequestBody @Validated(OnUpdate.class) OrderDto orderDto);
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "orderId", paramType = "path", required = true, value = "Order id")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", paramType = "path", required = true, value = "User id", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "orderId", paramType = "path", required = true, value = "Order id to delete", dataTypeClass = Long.class)})
     @ApiOperation("Delete order")
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/user/{userId}/order/{orderId}")
-     ResponseEntity<Void> deleteOrder(@PathVariable long userId, @PathVariable Long orderId);
+    ResponseEntity<Void> deleteOrder(@PathVariable long userId, @PathVariable Long orderId);
 
 
 }

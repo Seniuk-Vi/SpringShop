@@ -8,4 +8,5 @@ import lombok.Data;
 public class RoleDto {
     private long id;
     String role;
+
 }

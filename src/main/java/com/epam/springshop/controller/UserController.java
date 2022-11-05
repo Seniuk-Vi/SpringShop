@@ -55,6 +55,13 @@ public class UserController implements UserApi {
 
     }
     @Override
+    public UserModel unBan(long userId) {
+        log.info(String.format("%s : method ==> unBan(%s)", this.getClass().getName(), userId));
+        UserDto user = userService.banUser(userId);
+        return userAssembler.toModel(user);
+
+    }
+    @Override
     public ResponseEntity<Void> deleteUser(long userId) {
         log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), userId));
         userService.deleteUser(userId);

@@ -13,7 +13,9 @@ public class LocaleValidator implements ConstraintValidator<LocaleConstraint,Str
 
     @Override
     public boolean isValid(String locale, ConstraintValidatorContext constraintValidatorContext) {
+        System.out.println("locale: "+locale);
         for (LocaleEnum status : LocaleEnum.values()) {
+            System.out.println(status.name());
             if (status.name().equals(locale)) {
                 return true;
             }

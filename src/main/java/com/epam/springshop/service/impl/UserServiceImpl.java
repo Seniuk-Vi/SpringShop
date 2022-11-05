@@ -34,6 +34,9 @@ public class UserServiceImpl implements UserService {
     public UserDto getUser(Long obj) {
         log.info(String.format("%s : method ==> getUser(%s)", this.getClass().getName(), obj));
         User user = userRepoImpl.read(obj);
+        if(user == null){
+            throw new UserNotFoundException();
+        }
         return UserMapper.INSTANCE.mapUserDto(user);
     }
 
@@ -54,6 +57,7 @@ public class UserServiceImpl implements UserService {
         if (userRepoImpl.read(userID) == null) {
             throw new UserNotFoundException();
         }
+        obj.setId(userID);
         User user = userRepoImpl.update(UserMapper.INSTANCE.mapUser(obj));
         return UserMapper.INSTANCE.mapUserDto(user);
     }
@@ -63,6 +67,14 @@ public class UserServiceImpl implements UserService {
         log.info(String.format("%s : method ==> banUser(%s)", this.getClass().getName(), userId));
         User user = userRepoImpl.read(userId);
         user.setEnabled(false);
+        User updateUser = userRepoImpl.update(user);
+        return UserMapper.INSTANCE.mapUserDto(updateUser);
+    }
+    @Override
+    public UserDto unBan(long userId) {
+        log.info(String.format("%s : method ==> unBan(%s)", this.getClass().getName(), userId));
+        User user = userRepoImpl.read(userId);
+        user.setEnabled(true);
         User updateUser = userRepoImpl.update(user);
         return UserMapper.INSTANCE.mapUserDto(updateUser);
     }

@@ -11,5 +11,6 @@ public interface UserService {
      List<UserDto> getAllUsers();
      UserDto updateUser(long userId,UserDto obj);
      UserDto banUser(long userId);
+     UserDto unBan(long userId);
      void deleteUser(Long obj);
 }

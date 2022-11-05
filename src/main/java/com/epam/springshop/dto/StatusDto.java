@@ -9,5 +9,4 @@ import lombok.Data;
 @StatusConstraint(field = "status")
 public class StatusDto {
     String status;
-
 }

@@ -2,6 +2,7 @@ package com.epam.springshop.mapper;
 
 import com.epam.springshop.dto.OrderDto;
 import com.epam.springshop.dto.OrderItemDto;
+import com.epam.springshop.exceptions.ProductException;
 import com.epam.springshop.model.Order;
 import com.epam.springshop.model.OrderItem;
 import com.epam.springshop.model.Status;
@@ -12,6 +13,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -33,4 +37,19 @@ public interface OrderMapper {
         return User.builder().id(userId).build();
     }
     OrderItem mapOrderItem(OrderItemDto orderItemDto);
+    default Date mapDate(String stringDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = format.parse(stringDate);
+            return date;
+        } catch (ParseException e) {
+            throw new ProductException(); // todo: can't user message source here
+        }
+    }
+
+    default String mapDate(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String stringDate = format.format(date);
+        return stringDate;
+    }
 }
