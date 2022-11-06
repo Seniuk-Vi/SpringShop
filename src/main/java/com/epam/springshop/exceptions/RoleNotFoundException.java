@@ -2,7 +2,7 @@ package com.epam.springshop.exceptions;
 
 import com.epam.springshop.model.enums.ErrorType;
 
-public class RoleNotFoundException extends ServiceException{
+public class RoleNotFoundException extends NotFoundException{
     private static final String DEFAULT_MESSAGE="Role is not found";
 
     public RoleNotFoundException() {

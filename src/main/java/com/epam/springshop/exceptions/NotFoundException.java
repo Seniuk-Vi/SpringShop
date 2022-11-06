@@ -4,13 +4,12 @@ import com.epam.springshop.model.enums.ErrorType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
 @Data
 @EqualsAndHashCode(callSuper = false)
-public abstract class ServiceException extends RuntimeException {
+public abstract class NotFoundException extends RuntimeException {
     private ErrorType errorType;
 
-    public ServiceException(String message) {
+    public NotFoundException(String message) {
         super(message);
     }
 

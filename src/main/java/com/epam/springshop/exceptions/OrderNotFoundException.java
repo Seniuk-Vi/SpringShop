@@ -2,7 +2,7 @@ package com.epam.springshop.exceptions;
 
 import com.epam.springshop.model.enums.ErrorType;
 
-public class OrderNotFoundException extends ServiceException{
+public class OrderNotFoundException extends NotFoundException{
     private static final String DEFAULT_MESSAGE="Order is not found";
 
     public OrderNotFoundException() {

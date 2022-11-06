@@ -82,6 +82,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long obj) {
         log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), obj));
+        if (userRepoImpl.read(obj) == null) {
+            throw new UserNotFoundException();
+        }
         userRepoImpl.delete(obj);
     }
 }
