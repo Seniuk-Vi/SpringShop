@@ -56,6 +56,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long obj) {
         log.info(String.format("%s : method ==> deleteProduct(%s)", this.getClass().getName(),obj));
+        Product product = productRepo.read(obj);
+        if(product == null){
+            throw new ProductNotFoundException();
+        }
         productRepo.delete(obj);
     }
 }

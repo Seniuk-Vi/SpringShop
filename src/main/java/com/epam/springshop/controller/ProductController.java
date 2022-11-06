@@ -27,25 +27,31 @@ public class ProductController implements ProductApi {
     @Override
     public ProductModel createProduct(ProductDto productDto) {
         log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(), productDto));
-        ProductDto product= productService.createProduct(productDto);
+        ProductDto product = productService.createProduct(productDto);
         return productAssembler.toModel(product);
     }
 
     @Override
     public List<ProductDto> getProducts() {
         log.info(String.format("%s : method ==> getProducts()", this.getClass().getName()));
-        return productService.getProducts();
+        List<ProductDto> productDtos = productService.getProducts();
+        if (productDtos.size()==0) {
+            return null;
+        }
+        return productDtos;
     }
+
     @Override
     public ProductModel getProduct(Long productId) {
         log.info(String.format("%s : method ==> getProduct()", this.getClass().getName()));
-        ProductDto product=productService.getProduct(productId);
+        ProductDto product = productService.getProduct(productId);
         return productAssembler.toModel(product);
     }
+
     @Override
-    public ProductModel updateProduct(long productId,ProductDto productDto) {
+    public ProductModel updateProduct(long productId, ProductDto productDto) {
         log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), productDto));
-        ProductDto product= productService.updateProduct(productDto);
+        ProductDto product = productService.updateProduct(productDto);
         return productAssembler.toModel(product);
     }
 
