@@ -1,11 +1,20 @@
 package com.epam.springshop.model;
 
-import lombok.Builder;
-import lombok.Data;
+import javax.persistence.*;
+import lombok.*;
+
+
 
 @Builder
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Category {
+    @Id
+    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String category;
 }

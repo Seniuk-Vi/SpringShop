@@ -1,19 +1,17 @@
 package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.RoleDto;
+import com.epam.springshop.exceptions.RoleNotFoundException;
 import com.epam.springshop.mapper.RoleMapper;
-import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.model.Role;
-import com.epam.springshop.model.User;
-import com.epam.springshop.repository.impl.RoleRepoImpl;
-import com.epam.springshop.repository.impl.UserRepoImpl;
+import com.epam.springshop.repository.RoleRepoImpl;
 import com.epam.springshop.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -24,20 +22,21 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDto createRole(RoleDto obj) {
         log.info(String.format("%s : method ==> createRole(%s)", this.getClass().getName(),obj));
-        Role role = roleRepo.create(RoleMapper.INSTANCE.roleMapper(obj));
+        Role role = roleRepo.save(RoleMapper.INSTANCE.roleMapper(obj));
         return RoleMapper.INSTANCE.roleDtoMapper(role);
     }
 
     @Override
     public RoleDto getRole(Long obj) {
         log.info(String.format("%s : method ==> getRole(%s)", this.getClass().getName(),obj));
-        return RoleMapper.INSTANCE.roleDtoMapper(roleRepo.read(obj));
+        return RoleMapper.INSTANCE.roleDtoMapper(roleRepo.findById(obj).orElseThrow(RoleNotFoundException::new));
     }
 
     @Override
     public RoleDto getRole(String obj) {
         log.info(String.format("%s : method ==> getRole(%s)", this.getClass().getName(),obj));
-        for (Role role : roleRepo.readAll()) {
+        // todo: specify normally
+        for (Role role : roleRepo.findAll()) {
             if (role.getRole().equals(obj)){
                 return RoleMapper.INSTANCE.roleDtoMapper(role);
             }
@@ -48,19 +47,20 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDto> getAllRoles() {
         log.info(String.format("%s : method ==> getAllRoles()", this.getClass().getName()));
-        return RoleMapper.INSTANCE.roleDtosMapper(roleRepo.readAll());
+        return RoleMapper.INSTANCE.roleDtosMapper(roleRepo.findAll());
     }
 
     @Override
     public RoleDto updateRole(RoleDto obj) {
-        log.info(String.format("%s : method ==> updateRole(%s)", this.getClass().getName(),obj));
-        Role role = roleRepo.update(RoleMapper.INSTANCE.roleMapper(obj));
-        return RoleMapper.INSTANCE.roleDtoMapper(role);
+        return null;
+//        log.info(String.format("%s : method ==> updateRole(%s)", this.getClass().getName(),obj));
+//        Role role = roleRepo.update(RoleMapper.INSTANCE.roleMapper(obj));
+//        return RoleMapper.INSTANCE.roleDtoMapper(role);
     }
 
     @Override
     public void deleteRole(Long obj) {
         log.info(String.format("%s : method ==> deleteRole(%s)", this.getClass().getName(),obj));
-        roleRepo.delete(obj);
+        roleRepo.deleteById(obj);
     }
 }

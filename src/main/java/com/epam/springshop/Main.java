@@ -1,19 +1,41 @@
 package com.epam.springshop;
 
 import com.epam.springshop.model.Role;
+import com.epam.springshop.model.User;
 import com.epam.springshop.model.enums.StatusEnum;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, Role> m = new HashMap<>();
-        Role r = new Role(1, "role");
-        m.put(4, r);
-        System.out.println(m.get(4));
-        r = new Role(1, "new role");
-        System.out.println(m.get(4));
-        StatusEnum statusEnum = StatusEnum.CREATED;
+        Map<String, String> cfg = new HashMap<>();
+        cfg.put("hibernate.connection.driver_class", "org.postgresql.Driver");
+        cfg.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/shop");
+        cfg.put("hibernate.connection.username", "postgres");
+        cfg.put("hibernate.connection.password", "1085");
+        cfg.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PERSISTENCE_UNIT",cfg);
+        EntityManager entityManager=entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+        User user = User.builder().password("asd")
+                .email("email")
+                .enabled(true)
+                .locale("UK")
+                .login("login")
+                .name("name")
+                .surname("surname")
+                .role(new Role())
+                .phone_number("1234123412").build();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
     }
 }
