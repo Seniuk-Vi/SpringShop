@@ -1,19 +1,13 @@
 package com.epam.springshop.mapper;
 
 import com.epam.springshop.dto.ProductDto;
-import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.exceptions.ProductException;
 import com.epam.springshop.model.Category;
 import com.epam.springshop.model.Product;
-import com.epam.springshop.model.Role;
-import com.epam.springshop.model.User;
-import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -11,15 +11,19 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
+
 public class OrderItem {
     @Id
     @Column(name = "order_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long orderItemId;   // better to make orderId and ProductId primary and for keys
+    private long orderItemId;
     @ManyToOne()
-    Order order;
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "order_id_fk"))
+    private  Order order;
     @ManyToOne(fetch = FetchType.EAGER)
-    Product product;
-    int quantity;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", foreignKey = @ForeignKey(name = "product_id_fk"))
+    private Product product;
+    private int quantity;
 }
 

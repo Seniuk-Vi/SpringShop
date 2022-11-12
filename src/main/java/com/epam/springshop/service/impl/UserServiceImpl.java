@@ -4,6 +4,7 @@ import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.exceptions.UserNotFoundException;
 import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.model.User;
+import com.epam.springshop.model.enums.RoleEnum;
 import com.epam.springshop.repository.UserRepoImpl;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
         // todo check if role exists
         User user = UserMapper.INSTANCE.mapUser(obj);
         user.setEnabled(true);
+        user.setRole(RoleEnum.USER);
         return UserMapper.INSTANCE.mapUserDto(userRepoImpl.save(user));
     }
 

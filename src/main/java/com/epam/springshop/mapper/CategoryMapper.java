@@ -1,13 +1,8 @@
 package com.epam.springshop.mapper;
 
 import com.epam.springshop.dto.CategoryDto;
-import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.model.Category;
-import com.epam.springshop.model.Product;
-import com.epam.springshop.model.Role;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

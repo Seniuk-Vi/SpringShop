@@ -29,7 +29,10 @@ public interface OrderItemsMapper {
             @Mapping(source = "orderId", target = "order")})
     OrderItem mapOrderItem(OrderItemDto orderItemDto);
     default Product mapProduct(long productId) {
-        return Product.builder().id(productId).build();
+
+        Product product= Product.builder().id(productId).build();
+        System.out.println(product);
+        return product;
     }
     default Order mapOrder(long orderId) {
         return Order.builder().id(orderId).build();

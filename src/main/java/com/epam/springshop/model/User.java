@@ -1,6 +1,9 @@
 package com.epam.springshop.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import com.epam.springshop.model.enums.RoleEnum;
 import lombok.*;
 
 
@@ -12,26 +15,35 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Users")
+@Table(name = "Users", uniqueConstraints = {
+        @UniqueConstraint(name = "login_uq", columnNames = "login"),
+        @UniqueConstraint(name = "phone_number_uq", columnNames = "phone_number"),
+        @UniqueConstraint(name = "email_uq", columnNames = "email")})
 public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+    @NotNull
     private String login;
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
-    @Column(unique = true)
+    @NotNull
     private String phone_number;
-    @Column(unique = true)
+    @NotNull
     private String email;
+    @Column(nullable = false)
+    @NotNull
     private String locale;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn()
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(10) default 'USER'")
+    private RoleEnum role;
+    @NotNull
     private boolean enabled;
+    @NotNull
     private String password;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
     private List<Order> orders;
 }

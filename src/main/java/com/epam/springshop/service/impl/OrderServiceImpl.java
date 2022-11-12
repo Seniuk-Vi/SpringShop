@@ -5,6 +5,8 @@ import com.epam.springshop.dto.OrderItemDto;
 import com.epam.springshop.exceptions.OrderNotFoundException;
 import com.epam.springshop.mapper.OrderMapper;
 import com.epam.springshop.model.Order;
+import com.epam.springshop.model.OrderItem;
+import com.epam.springshop.model.Product;
 import com.epam.springshop.repository.OrderRepoImpl;
 import com.epam.springshop.service.OrderItemService;
 import com.epam.springshop.service.OrderService;
@@ -12,12 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderServiceImpl implements OrderService {
     private final OrderRepoImpl orderRepo;
     private final OrderItemService orderItemService;
@@ -26,17 +30,17 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto createOrder(OrderDto obj) {
         // create order
         log.info(String.format("%s : method ==> createOrder(%s)", this.getClass().getName(), obj));
-        Order order = orderRepo.save(OrderMapper.INSTANCE.mapOrder(obj));
+        obj.setStatus("PAYED");
+        Order order = OrderMapper.INSTANCE.mapOrder(obj);
+        System.out.println(order);
+        order = orderRepo.save(order);
         // todo check if status exists
         // create orderItems
         List<OrderItemDto> orderItems = new ArrayList<>();
-        for (OrderItemDto orderItem : obj.getOrderItems()) {
-            orderItem.setOrderId(order.getId());
-           // orderItems.add(orderItemService.createOrderItem(orderItem));
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setOrder(order);
+          //  orderItem.setProduct(Product.builder().id(1).build());
         }
-        // create orderDto
-      //  OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto();
-      //  orderDto.setOrderItems(orderItems);
         return getOrder(order.getId());
     }
 

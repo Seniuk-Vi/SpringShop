@@ -22,7 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto createCategory(CategoryDto obj) {
         log.info(String.format("%s : method ==> createCategory(%s)", this.getClass().getName(), obj));
-        Category category = categoryRepo.save(CategoryMapper.INSTANCE.mapCategory(obj));
+        Category category = CategoryMapper.INSTANCE.mapCategory(obj);
+        category = categoryRepo.save(category);
         return CategoryMapper.INSTANCE.mapCategoryDto(category);
     }
 
@@ -37,13 +38,23 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDto getCategory(String obj) {
+        log.info(String.format("%s : method ==> CategoryDto(%s)", this.getClass().getName(), obj));
+        Category category = categoryRepo.findCategoriesByCategory(obj);
+        if (category == null) {
+            throw new UserNotFoundException();
+        }
+        return CategoryMapper.INSTANCE.mapCategoryDto(category);
+    }
+
+    @Override
     public List<CategoryDto> getAllCategories() {
         log.info(String.format("%s : method ==> getAllCategories()", this.getClass().getName()));
         return CategoryMapper.INSTANCE.mapCategoryDtos(categoryRepo.findAll());
     }
 
     @Override
-    public CategoryDto updateCategory(CategoryDto obj) {
+    public CategoryDto updateCategory(Long id, CategoryDto obj) {
         return null;
 //        log.info(String.format("%s : method ==> updateCategory(%s)", this.getClass().getName(), obj));
 //        Category category = categoryRepo.update(CategoryMapper.INSTANCE.mapCategory(obj));
