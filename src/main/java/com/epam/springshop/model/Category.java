@@ -23,7 +23,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String category;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", unique = true, foreignKey = @ForeignKey(name = "product_id_fk"))
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> product;
 }

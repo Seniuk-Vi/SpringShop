@@ -27,7 +27,7 @@ public class OrderController implements OrderApi {
     @Override
     public OrderModel createOrder( long userId,OrderDto orderDto) {
         // todo check if order has appropriate userId
-        log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(), orderDto));
+        log.info(String.format("%s : method ==> createOrder(%s)", this.getClass().getName(), orderDto));
         OrderDto order =  orderService.createOrder(orderDto);
         return orderAssembler.toModel(order);
 
@@ -49,7 +49,7 @@ public class OrderController implements OrderApi {
     @Override
     public OrderModel updateOrder( long userId,long orderId,OrderDto orderDto) {
         // todo check if order has appropriate userId
-        log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), orderDto));
+        log.info(String.format("%s : method ==> updateOrder(%s)", this.getClass().getName(), orderDto));
         OrderDto order =  orderService.updateOrder(orderDto);
         return orderAssembler.toModel(order);
     }
@@ -57,7 +57,7 @@ public class OrderController implements OrderApi {
     @Override
     public ResponseEntity<Void> deleteOrder( long userId, Long orderId) {
         // todo check if order has appropriate userId
-        log.info(String.format("%s : method ==> deleteProduct(%s)", this.getClass().getName(), orderId));
+        log.info(String.format("%s : method ==> deleteOrder(%s)", this.getClass().getName(), orderId));
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok().build();
     }

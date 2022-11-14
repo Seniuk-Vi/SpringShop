@@ -2,7 +2,6 @@ package com.epam.springshop.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import com.epam.springshop.model.enums.RoleEnum;
 import lombok.*;
 
@@ -44,6 +43,6 @@ public class User {
     private boolean enabled;
     @NotNull
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
     private List<Order> orders;
 }

@@ -27,15 +27,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(10) default 'PAYED'")
+    @Column(columnDefinition = "varchar(10) default 'CREATED'")
     @NotNull
     private StatusEnum status;
     @NotNull
     private  Date orderDate;
     @NotNull
     @ManyToOne()
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id_fk"))
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "user_id_fk"))
     private User user;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private  Set<OrderItem> orderItems;
 }

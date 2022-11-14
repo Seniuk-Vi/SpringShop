@@ -1,7 +1,6 @@
 package com.epam.springshop.dto;
 
 import com.epam.springshop.exceptions.validator.StatusConstraint;
-import jakarta.persistence.Access;
 import lombok.*;
 
 @Builder

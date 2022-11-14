@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto createOrder(OrderDto obj) {
         // create order
         log.info(String.format("%s : method ==> createOrder(%s)", this.getClass().getName(), obj));
-        obj.setStatus("PAYED");
+        obj.setStatus("CREATED");
         Order order = OrderMapper.INSTANCE.mapOrder(obj);
         System.out.println(order);
         order = orderRepo.save(order);
