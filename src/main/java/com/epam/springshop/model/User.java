@@ -43,6 +43,6 @@ public class User {
     private boolean enabled;
     @NotNull
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
     private List<Order> orders;
 }

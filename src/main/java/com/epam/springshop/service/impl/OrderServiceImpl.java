@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemService orderItemService;
 
     @Override
+    @Transactional
     public OrderDto createOrder(OrderDto obj) {
         // create order
         log.info(String.format("%s : method ==> createOrder(%s)", this.getClass().getName(), obj));
@@ -39,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItemDto> orderItems = new ArrayList<>();
         for (OrderItem orderItem : order.getOrderItems()) {
             orderItem.setOrder(order);
-          //  orderItem.setProduct(Product.builder().id(1).build());
         }
         return getOrder(order.getId());
     }
