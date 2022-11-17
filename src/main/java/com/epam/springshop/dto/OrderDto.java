@@ -10,6 +10,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.sql.Date;
 import java.util.List;
@@ -18,8 +19,6 @@ import java.util.List;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto {
-    @Positive(groups = OnUpdate.class)
-    @NotNull(message = "{orderdto.id.notempty}", groups = OnUpdate.class) //todo: rewrite method update
     long id;
     @Positive
     @NotNull(message = "{orderdto.userId.notempty}", groups = OnCreate.class)

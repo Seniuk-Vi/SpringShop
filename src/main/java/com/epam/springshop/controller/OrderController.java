@@ -5,9 +5,13 @@ import com.epam.springshop.controller.assembler.OrderAssembler;
 import com.epam.springshop.controller.model.OrderModel;
 import com.epam.springshop.dto.OrderDto;
 import com.epam.springshop.dto.ProductDto;
+import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.dto.group.OnCreate;
+import com.epam.springshop.exceptions.EntityIllegalArgumentException;
+import com.epam.springshop.model.Order;
 import com.epam.springshop.service.OrderService;
 import com.epam.springshop.service.ProductService;
+import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,7 @@ import java.util.List;
 
 public class OrderController implements OrderApi {
     private final OrderService orderService;
+    private final UserService userService;
     private final OrderAssembler orderAssembler;
 
     @Override
@@ -50,7 +55,15 @@ public class OrderController implements OrderApi {
     public OrderModel updateOrder( long userId,long orderId,OrderDto orderDto) {
         // todo check if order has appropriate userId
         log.info(String.format("%s : method ==> updateOrder(%s)", this.getClass().getName(), orderDto));
-        OrderDto order =  orderService.updateOrder(orderDto);
+        // check if user exists
+        UserDto user = userService.getUser(userId);
+        OrderDto orderDto2 = orderService.getOrder(orderId);
+        // check if this order
+        if(orderDto2.getUserId()!=userId){
+            throw new EntityIllegalArgumentException("User don't have order with this id");
+        }
+        // update order
+        OrderDto order =  orderService.updateOrder(orderId,orderDto);
         return orderAssembler.toModel(order);
     }
 

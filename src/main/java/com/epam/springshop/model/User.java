@@ -30,6 +30,7 @@ public class User {
     @NotNull
     private String surname;
     @NotNull
+    @Column(name = "phone_number")
     private String phoneNumber;
     @NotNull
     private String email;

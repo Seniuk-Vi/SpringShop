@@ -10,6 +10,6 @@ public interface OrderService {
     OrderDto getOrder(Long obj);
     List<OrderDto> getAllOrders();
     List<OrderDto> getAllOrders(Long obj);
-    OrderDto updateOrder(OrderDto obj);
+    OrderDto updateOrder(Long orderId,OrderDto obj);
     void deleteOrder(Long obj);
 }

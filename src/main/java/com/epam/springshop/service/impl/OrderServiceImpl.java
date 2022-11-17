@@ -7,7 +7,9 @@ import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.exceptions.EntityIllegalArgumentException;
 import com.epam.springshop.exceptions.OrderNotFoundException;
 import com.epam.springshop.exceptions.ProductException;
+import com.epam.springshop.exceptions.ProductNotFoundException;
 import com.epam.springshop.mapper.OrderMapper;
+import com.epam.springshop.mapper.ProductMapper;
 import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.mapper.UserMapperImpl;
 import com.epam.springshop.model.Order;
@@ -66,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
             ProductDto product = productService.getProduct(orderItem.getProduct().getId());
             // check available quantity
             if (orderItem.getQuantity()>product.getInStock()){
-                exceptions.add(new EntityIllegalArgumentException("Can't create order because can't provide available quantity to product: "+product));
+                exceptions.add(new EntityIllegalArgumentException("Can't create order because can't provide available quantity to product: "+product.getTitle()));
             }
             orderItem.setOrder(order);
         }
@@ -81,9 +83,6 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto getOrder(Long obj) {
         log.info(String.format("%s : method ==> getOrder(%s)", this.getClass().getName(), obj));
         Order order = orderRepo.findById(obj).orElseThrow(OrderNotFoundException::new);
-//        List<OrderItemDto> orderItemDtos = orderItemService.getAllOrderItems(order.getId());
-//        OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto(order);
-//        orderDto.setOrderItems(orderItemDtos);
         OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto(order);
         return orderDto;
     }
@@ -92,13 +91,6 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> getAllOrders() {
         log.info(String.format("%s : method ==> getAllOrders()", this.getClass().getName()));
         List<Order> orders = orderRepo.findAll();
-//        List<OrderDto> orderDtos = new ArrayList<>();
-//        for (Order order : orders) {
-//            List<OrderItemDto> orderItemDtos = orderItemService.getAllOrderItems(order.getId());
-//            OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto(order);
-//            orderDto.setOrderItems(orderItemDtos);
-//            orderDtos.add(orderDto);
-//        }
         List<OrderDto> orderDtos = OrderMapper.INSTANCE.mapOrderDtos(orders);
         return orderDtos;
     }
@@ -106,16 +98,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> getAllOrders(Long obj) {
         log.info(String.format("%s : method ==> getAllOrders(%s)", this.getClass().getName(), obj));
-//        List<OrderDto> orderDtos = new ArrayList<>();
-//        // todo: specify find with userId
-//        for (Order order : orderRepo.findAll()) {
-//            if (order.getUser().getId() == obj) {
-//                List<OrderItemDto> orderItemDtos = orderItemService.getAllOrderItems(order.getId());
-//                OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto(order);
-//                orderDto.setOrderItems(orderItemDtos);
-//                orderDtos.add(orderDto);
-//            }
-//        }
         UserDto user = userService.getUser(obj);
         List<Order> orders = orderRepo.findAllByUser(UserMapper.INSTANCE.mapUser(user));
         List<OrderDto> orderDtos = OrderMapper.INSTANCE.mapOrderDtos(orders);
@@ -123,18 +105,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto updateOrder(OrderDto obj) {
-        return null;
-//        log.info(String.format("%s : method ==> updateOrder(%s)", this.getClass().getName(), obj));
-//        Order order = orderRepo.update(OrderMapper.INSTANCE.mapOrder(obj));
-//        // update items
-//        List<OrderItemDto> orderItems = new ArrayList<>();
-//        for (OrderItemDto orderItem : obj.getOrderItems()) {
-//            orderItems.add(orderItemService.updateOrderItem(orderItem));
-//        }
-//        OrderDto orderDto = OrderMapper.INSTANCE.mapOrderDto(order);
-//        orderDto.setOrderItems(orderItems);
-//        return orderDto;
+    @Transactional
+    public OrderDto updateOrder(Long orderId, OrderDto obj) {
+        log.info(String.format("%s : method ==> updateOrder(%s)", this.getClass().getName(), obj));
+        Order order = orderRepo.findById(orderId).orElseThrow(ProductNotFoundException::new);
+        // todo: check field
+
+        // update fields
+        Order upd_order = OrderMapper.INSTANCE.mapOrder(obj);
+        order.setStatus(upd_order.getStatus());
+
+        return OrderMapper.INSTANCE.mapOrderDto(order);
     }
 
     @Override
