@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(name = "login_uq", columnNames = "login"),
-        @UniqueConstraint(name = "phone_number_uq", columnNames = "phone_number"),
+        @UniqueConstraint(name = "phone_number_uq", columnNames = "phoneNumber"),
         @UniqueConstraint(name = "email_uq", columnNames = "email")})
 public class User {
     @Id
@@ -30,7 +30,7 @@ public class User {
     @NotNull
     private String surname;
     @NotNull
-    private String phone_number;
+    private String phoneNumber;
     @NotNull
     private String email;
     @Column(nullable = false)

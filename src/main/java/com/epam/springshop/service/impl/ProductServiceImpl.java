@@ -2,6 +2,8 @@ package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.CategoryDto;
 import com.epam.springshop.dto.ProductDto;
+import com.epam.springshop.exceptions.EntityIllegalArgumentException;
+import com.epam.springshop.exceptions.ProductException;
 import com.epam.springshop.exceptions.ProductNotFoundException;
 import com.epam.springshop.mapper.CategoryMapper;
 import com.epam.springshop.mapper.ProductMapper;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Slf4j
@@ -26,9 +29,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto createProduct(ProductDto obj) {
         // todo check if category exists
-        log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(),obj));
-        CategoryDto categoryDto = categoryService.getCategory(obj.getCategory());
+        log.info(String.format("%s : method ==> createProduct(%s)", this.getClass().getName(), obj));
         Product product = ProductMapper.INSTANCE.mapProduct(obj);
+        // check if category exists
+        List<EntityIllegalArgumentException> exceptions = new ArrayList<>();
+        CategoryDto categoryDto = categoryService.getCategory(obj.getCategory());
+        // check date
+        Date date = new Date();
+        if (product.getPostDate().after(date)) {
+            exceptions.add(new EntityIllegalArgumentException("Post date can't be in future"));
+        }
+        if (exceptions.size() > 0) {
+            String messages = exceptions.toString();
+            throw new EntityIllegalArgumentException(messages);
+        }
+        // save product
         product.setCategory(CategoryMapper.INSTANCE.mapCategory(categoryDto));
         product = productRepo.save(product);
         return ProductMapper.INSTANCE.mapProductDto(product);
@@ -36,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProduct(Long obj) {
-        log.info(String.format("%s : method ==> getProduct(%s)", this.getClass().getName(),obj));
+        log.info(String.format("%s : method ==> getProduct(%s)", this.getClass().getName(), obj));
         Product product = productRepo.findById(obj).orElseThrow(ProductNotFoundException::new);
         return ProductMapper.INSTANCE.mapProductDto(product);
     }
@@ -49,16 +64,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(ProductDto obj) {
-        return null;
-//        log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(),obj));
-//        Product product2 = productRepo.update(ProductMapper.INSTANCE.mapProduct(obj));
-//        return ProductMapper.INSTANCE.mapProductDto(product2);
+    @Transactional
+    public ProductDto updateProduct(Long productId,ProductDto obj) {
+        log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(),obj));
+        Product product = productRepo.findById(productId).orElseThrow(ProductNotFoundException::new);
+        // todo: check field
+
+        // update fields
+        product.setTitle(obj.getTitle());
+        product.setDescription(obj.getDescription());
+        product.setPrice(obj.getPrice());
+        product.setInStock(obj.getInStock());
+
+        return ProductMapper.INSTANCE.mapProductDto(product);
     }
 
     @Override
     public void deleteProduct(Long obj) {
-        log.info(String.format("%s : method ==> deleteProduct(%s)", this.getClass().getName(),obj));
+        log.info(String.format("%s : method ==> deleteProduct(%s)", this.getClass().getName(), obj));
         productRepo.deleteById(obj);
     }
 }

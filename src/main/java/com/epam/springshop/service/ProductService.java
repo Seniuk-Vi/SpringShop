@@ -10,6 +10,6 @@ public interface ProductService {
      ProductDto createProduct(ProductDto obj);
      ProductDto getProduct(Long obj);
      List<ProductDto> getProducts();
-     ProductDto updateProduct(ProductDto obj);
+     ProductDto updateProduct(Long productId,ProductDto obj);
      void deleteProduct(Long obj);
 }

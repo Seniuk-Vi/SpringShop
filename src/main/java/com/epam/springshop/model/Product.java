@@ -29,11 +29,11 @@ public class Product {
     @NotNull
     private Double price;
     @NotNull
-    private String image_url;
+    private String imageUrl;
     @NotNull
-    private  Date post_date;
+    private  Date postDate;
     @NotNull
-    private Integer in_stock;
+    private Integer inStock;
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", foreignKey = @ForeignKey(name = "category_id_fk"))
     private Category category;
