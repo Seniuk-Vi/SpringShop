@@ -2,6 +2,7 @@ package com.epam.springshop.controller;
 
 import com.epam.springshop.api.ProductApi;
 import com.epam.springshop.controller.assembler.ProductAssembler;
+import com.epam.springshop.controller.model.ProductListModel;
 import com.epam.springshop.controller.model.ProductModel;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.group.OnCreate;
@@ -32,13 +33,13 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public List<ProductDto> getProducts() {
+    public ProductListModel getProducts(int page, int size) {
         log.info(String.format("%s : method ==> getProducts()", this.getClass().getName()));
-        List<ProductDto> productDtos = productService.getProducts();
-        if (productDtos.size()==0) {
+        List<ProductDto> productDtos = productService.getProducts(page, size);
+        if (productDtos.size() == 0) {
             return null;
         }
-        return productDtos;
+        return productAssembler.toModels(productDtos, page, size);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ProductController implements ProductApi {
     @Override
     public ProductModel updateProduct(long productId, ProductDto productDto) {
         log.info(String.format("%s : method ==> updateProduct(%s)", this.getClass().getName(), productDto));
-        ProductDto product = productService.updateProduct(productId,productDto);
+        ProductDto product = productService.updateProduct(productId, productDto);
         return productAssembler.toModel(product);
     }
 

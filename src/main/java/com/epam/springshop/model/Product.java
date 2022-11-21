@@ -7,6 +7,7 @@ import lombok.*;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Getter
@@ -15,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @ToString
-
 @Table(name = "Products")
 public class Product {
     @Id
@@ -37,5 +37,8 @@ public class Product {
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", foreignKey = @ForeignKey(name = "category_id_fk"))
     private Category category;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ToString.Exclude
+    List<OrderItem> orderItemList;
 
 }

@@ -3,8 +3,7 @@ package com.epam.springshop.service.impl;
 import com.epam.springshop.dto.CategoryDto;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.exceptions.EntityIllegalArgumentException;
-import com.epam.springshop.exceptions.ProductException;
-import com.epam.springshop.exceptions.ProductNotFoundException;
+import com.epam.springshop.exceptions.impl.ProductNotFoundException;
 import com.epam.springshop.mapper.CategoryMapper;
 import com.epam.springshop.mapper.ProductMapper;
 import com.epam.springshop.model.Product;
@@ -13,6 +12,9 @@ import com.epam.springshop.service.CategoryService;
 import com.epam.springshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -57,9 +59,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getProducts() {
+    public List<ProductDto> getProducts(int page,int size) {
         log.info(String.format("%s : method ==> getProducts()", this.getClass().getName()));
-        List<Product> products = (List<Product>) productRepo.findAll();
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Product> pagProducts =  productRepo.findAll(pageable);
+        List<Product> products = pagProducts.getContent();
         return ProductMapper.INSTANCE.mapProductDtos(products);
     }
 

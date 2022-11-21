@@ -1,16 +1,18 @@
 package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.CategoryDto;
-import com.epam.springshop.exceptions.UserNotFoundException;
+import com.epam.springshop.exceptions.EntityIllegalArgumentException;
+import com.epam.springshop.exceptions.impl.CategoryNotFoundException;
+import com.epam.springshop.exceptions.impl.UserNotFoundException;
 import com.epam.springshop.mapper.CategoryMapper;
 import com.epam.springshop.model.Category;
-import com.epam.springshop.model.User;
 import com.epam.springshop.repository.CategoryRepoImpl;
 import com.epam.springshop.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto createCategory(CategoryDto obj) {
         log.info(String.format("%s : method ==> createCategory(%s)", this.getClass().getName(), obj));
         Category category = CategoryMapper.INSTANCE.mapCategory(obj);
+        if (categoryRepo.findCategoriesByCategory(obj.getCategory()) != null) {
+          throw new EntityIllegalArgumentException("Category name already exists");
+        }
         category = categoryRepo.save(category);
         return CategoryMapper.INSTANCE.mapCategoryDto(category);
     }
@@ -42,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
         log.info(String.format("%s : method ==> CategoryDto(%s)", this.getClass().getName(), obj));
         Category category = categoryRepo.findCategoriesByCategory(obj);
         if (category == null) {
-            throw new UserNotFoundException();
+            throw new CategoryNotFoundException();
         }
         return CategoryMapper.INSTANCE.mapCategoryDto(category);
     }
@@ -54,11 +59,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto updateCategory(Long id, CategoryDto obj) {
-        return null;
-//        log.info(String.format("%s : method ==> updateCategory(%s)", this.getClass().getName(), obj));
-//        Category category = categoryRepo.update(CategoryMapper.INSTANCE.mapCategory(obj));
-//        return CategoryMapper.INSTANCE.mapCategoryDto(category);
+        log.info(String.format("%s : method ==> updateCategory(%s)", this.getClass().getName(), obj));
+        Category category = categoryRepo.findById(id).orElseThrow(CategoryNotFoundException::new);
+        category.setCategory(obj.getCategory());
+        return CategoryMapper.INSTANCE.mapCategoryDto(category);
     }
 
     @Override

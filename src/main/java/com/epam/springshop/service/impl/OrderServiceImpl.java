@@ -5,20 +5,16 @@ import com.epam.springshop.dto.OrderItemDto;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.exceptions.EntityIllegalArgumentException;
-import com.epam.springshop.exceptions.OrderNotFoundException;
-import com.epam.springshop.exceptions.ProductException;
-import com.epam.springshop.exceptions.ProductNotFoundException;
+import com.epam.springshop.exceptions.impl.OrderNotFoundException;
+import com.epam.springshop.exceptions.impl.ProductNotFoundException;
+import com.epam.springshop.exceptions.impl.UserNotFoundException;
 import com.epam.springshop.mapper.OrderMapper;
-import com.epam.springshop.mapper.ProductMapper;
 import com.epam.springshop.mapper.UserMapper;
-import com.epam.springshop.mapper.UserMapperImpl;
 import com.epam.springshop.model.Order;
 import com.epam.springshop.model.OrderItem;
-import com.epam.springshop.model.Product;
-import com.epam.springshop.model.User;
 import com.epam.springshop.model.enums.StatusEnum;
 import com.epam.springshop.repository.OrderRepoImpl;
-import com.epam.springshop.repository.UserRepoImpl;
+import com.epam.springshop.repository.ProductRepoImpl;
 import com.epam.springshop.service.OrderItemService;
 import com.epam.springshop.service.OrderService;
 import com.epam.springshop.service.ProductService;
@@ -50,10 +46,26 @@ public class OrderServiceImpl implements OrderService {
         Order order = OrderMapper.INSTANCE.mapOrder(obj);
         // check fields
         List<EntityIllegalArgumentException> exceptions = new ArrayList<>();
+        // check if user exists
+        try{
+            userService.getUser(obj.getUserId());
+        }catch (UserNotFoundException ex){
+            exceptions.add( new EntityIllegalArgumentException(ex.getMessage()));
+        }
+        // check date
         Date date = new Date();
         if (order.getOrderDate().after(date)) {
             exceptions.add(new EntityIllegalArgumentException("Order date can't be in future"));
         }
+        // check if all products exists
+        for (OrderItemDto orderItem : obj.getOrderItems()) {
+            try{
+                productService.getProduct(orderItem.getProductId());
+            }catch (ProductNotFoundException ex){
+                exceptions.add( new EntityIllegalArgumentException(ex.getMessage()));
+            }
+        }
+
         if (exceptions.size() > 0) {
             String messages = exceptions.toString();
             throw new EntityIllegalArgumentException(messages);
@@ -70,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
             if (orderItem.getQuantity()>product.getInStock()){
                 exceptions.add(new EntityIllegalArgumentException("Can't create order because can't provide available quantity to product: "+product.getTitle()));
             }
+            product.setInStock(product.getInStock()-orderItem.getQuantity());
             orderItem.setOrder(order);
         }
         if (exceptions.size() > 0) {

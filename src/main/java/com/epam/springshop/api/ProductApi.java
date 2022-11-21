@@ -1,5 +1,6 @@
 package com.epam.springshop.api;
 
+import com.epam.springshop.controller.model.ProductListModel;
 import com.epam.springshop.controller.model.ProductModel;
 import com.epam.springshop.controller.model.UserModel;
 import com.epam.springshop.dto.ProductDto;
@@ -30,7 +31,8 @@ public interface ProductApi {
     @ApiOperation("Get products")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products")
-    List<ProductDto> getProducts();
+    ProductListModel getProducts(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "4") int size);
 
     @ApiImplicitParams({@ApiImplicitParam(name = "productId", paramType = "path", required = true, value = "Product id",dataTypeClass = Long.class)})
     @ApiOperation("Get product by id")

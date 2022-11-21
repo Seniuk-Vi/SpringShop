@@ -11,6 +11,6 @@ public interface OrderItemService {
      OrderItemDto getOrderItem(Long obj);
      List<OrderItemDto> getAllOrderItems();
      List<OrderItemDto> getAllOrderItems(long obj);
-     OrderItemDto updateOrderItem(OrderItemDto obj);
+     OrderItemDto updateOrderItem(Long orderItemId,OrderItemDto obj);
      void deleteOrderItem(Long obj);
 }

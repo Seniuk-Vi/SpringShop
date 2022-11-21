@@ -1,7 +1,5 @@
 package com.epam.springshop.controller;
 
-import com.epam.springshop.exceptions.ProductNotFoundException;
-import com.epam.springshop.exceptions.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
 
 import java.io.IOException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 import static org.springframework.http.HttpStatus.Series.CLIENT_ERROR;
 import static org.springframework.http.HttpStatus.Series.SERVER_ERROR;

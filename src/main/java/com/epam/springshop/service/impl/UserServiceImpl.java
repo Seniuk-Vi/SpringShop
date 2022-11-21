@@ -2,7 +2,7 @@ package com.epam.springshop.service.impl;
 
 import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.exceptions.EntityIllegalArgumentException;
-import com.epam.springshop.exceptions.UserNotFoundException;
+import com.epam.springshop.exceptions.impl.UserNotFoundException;
 import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.model.User;
 import com.epam.springshop.model.enums.RoleEnum;
