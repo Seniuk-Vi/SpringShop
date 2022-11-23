@@ -9,7 +9,7 @@ import lombok.*;
 
 import javax.swing.undo.StateEdit;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 

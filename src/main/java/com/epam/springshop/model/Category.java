@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor()
 @Entity
 @Table(name = "categories", uniqueConstraints = {
         @UniqueConstraint(name = "category_uq", columnNames = "category")

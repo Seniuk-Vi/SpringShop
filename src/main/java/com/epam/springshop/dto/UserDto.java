@@ -5,6 +5,7 @@ import com.epam.springshop.dto.group.OnUpdate;
 import com.epam.springshop.exceptions.validator.LocaleConstraint;
 import com.epam.springshop.exceptions.validator.PhoneNumberConstraint;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.Null;
 
 @Builder
 @Data
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
     long id;
