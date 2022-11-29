@@ -3,10 +3,7 @@ package com.epam.springshop.service.impl;
 import static com.epam.springshop.utils.TestUtils.*;
 
 import com.epam.springshop.dto.UserDto;
-import com.epam.springshop.exceptions.impl.UserNotFoundException;
-import com.epam.springshop.mapper.UserMapper;
 import com.epam.springshop.model.User;
-import com.epam.springshop.model.enums.RoleEnum;
 import com.epam.springshop.repository.UserRepoImpl;
 import com.epam.springshop.utils.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +23,6 @@ class UserServiceImplTest {
     private UserServiceImpl userServiceImpl;
     @Mock
     private UserRepoImpl userRepoImpl;
-    @Mock
-
-    private UserMapper userMapper;
 
     @Test
     void createUser() {

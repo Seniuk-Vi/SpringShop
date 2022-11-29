@@ -7,6 +7,7 @@ import lombok.*;
 
 
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @Getter
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(name = "login_uq", columnNames = "login"),
         @UniqueConstraint(name = "phone_number_uq", columnNames = "phone_number"),
@@ -45,5 +47,29 @@ public class User {
     @NotNull
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Order> orders;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id
+                && Objects.equals(login, user.login)
+                && Objects.equals(password, user.password)
+                && Objects.equals(name, user.name)
+                && Objects.equals(surname, user.surname)
+                && Objects.equals(email, user.email)
+                && Objects.equals(locale, user.locale)
+                && Objects.equals(phoneNumber, user.phoneNumber)
+                && Objects.equals(role, user.role)
+                && Objects.equals(enabled, user.enabled);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, email,
+                password, login, locale, phoneNumber, role, enabled);
+    }
 }
