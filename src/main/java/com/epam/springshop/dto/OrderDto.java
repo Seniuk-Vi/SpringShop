@@ -3,16 +3,13 @@ package com.epam.springshop.dto;
 import com.epam.springshop.dto.group.OnCreate;
 import com.epam.springshop.dto.group.OnUpdate;
 import com.epam.springshop.exceptions.validator.PatternConstraint;
-import com.epam.springshop.model.OrderItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
-import java.sql.Date;
 import java.util.List;
 
 @Builder

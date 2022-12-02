@@ -1,9 +1,8 @@
 package com.epam.springshop.model;
 
-import javax.persistence.*;
-
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 

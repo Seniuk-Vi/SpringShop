@@ -1,6 +1,5 @@
 package com.epam.springshop.api;
 
-import com.epam.springshop.controller.model.ProductModel;
 import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.group.OnCreate;
 import com.epam.springshop.dto.group.OnUpdate;
@@ -10,12 +9,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.minidev.json.JSONObject;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Api(tags = "Rest template products")
 @RequestMapping("/template")

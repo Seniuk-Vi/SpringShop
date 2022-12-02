@@ -22,7 +22,7 @@ public interface UserApi {
     @ApiImplicitParams({@ApiImplicitParam(name = "userDto", paramType = "body", required = true, value = "User object", dataTypeClass = UserDto.class)})
     @ApiOperation("Create user")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/user")
+    @PostMapping(value = "/user")
     UserModel createUser(@RequestBody @Validated(OnCreate.class) UserDto userDto);
 
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", paramType = "path", required = true, value = "User id", dataTypeClass = Long.class)})

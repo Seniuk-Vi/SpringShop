@@ -1,7 +1,5 @@
 package com.epam.springshop.model.enums;
 
-import org.springframework.stereotype.Component;
-
 public enum StatusEnum {
     CREATED("Created"),
     PAYED("Payed"),

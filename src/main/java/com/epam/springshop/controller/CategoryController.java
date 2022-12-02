@@ -1,13 +1,8 @@
 package com.epam.springshop.controller;
 
 import com.epam.springshop.api.CategoryApi;
-import com.epam.springshop.api.UserApi;
-import com.epam.springshop.controller.assembler.UserAssembler;
-import com.epam.springshop.controller.model.UserModel;
 import com.epam.springshop.dto.CategoryDto;
-import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.service.CategoryService;
-import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

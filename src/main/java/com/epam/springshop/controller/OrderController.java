@@ -4,19 +4,14 @@ import com.epam.springshop.api.OrderApi;
 import com.epam.springshop.controller.assembler.OrderAssembler;
 import com.epam.springshop.controller.model.OrderModel;
 import com.epam.springshop.dto.OrderDto;
-import com.epam.springshop.dto.ProductDto;
 import com.epam.springshop.dto.UserDto;
-import com.epam.springshop.dto.group.OnCreate;
 import com.epam.springshop.exceptions.EntityIllegalArgumentException;
-import com.epam.springshop.model.Order;
 import com.epam.springshop.service.OrderService;
-import com.epam.springshop.service.ProductService;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

@@ -4,7 +4,6 @@ import com.epam.springshop.dto.OrderItemDto;
 import com.epam.springshop.model.Order;
 import com.epam.springshop.model.OrderItem;
 import com.epam.springshop.model.Product;
-import com.epam.springshop.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

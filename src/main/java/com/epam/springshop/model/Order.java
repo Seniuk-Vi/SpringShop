@@ -1,16 +1,11 @@
 package com.epam.springshop.model;
 
 import com.epam.springshop.model.enums.StatusEnum;
-
-import javax.persistence.*;
-
 import lombok.*;
 
-
-import javax.swing.undo.StateEdit;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Builder

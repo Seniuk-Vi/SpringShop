@@ -1,7 +1,6 @@
 package com.epam.springshop.controller.model;
 
 import com.epam.springshop.dto.ProductDto;
-import com.epam.springshop.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Data;

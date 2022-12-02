@@ -5,16 +5,12 @@ import com.epam.springshop.controller.assembler.ProductAssembler;
 import com.epam.springshop.controller.model.ProductListModel;
 import com.epam.springshop.controller.model.ProductModel;
 import com.epam.springshop.dto.ProductDto;
-import com.epam.springshop.dto.group.OnCreate;
-import com.epam.springshop.dto.group.OnUpdate;
 import com.epam.springshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Slf4j

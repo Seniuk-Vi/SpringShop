@@ -1,12 +1,9 @@
 package com.epam.springshop.controller.assembler;
 
 import com.epam.springshop.controller.ProductController;
-import com.epam.springshop.controller.UserController;
 import com.epam.springshop.controller.model.ProductListModel;
 import com.epam.springshop.controller.model.ProductModel;
-import com.epam.springshop.controller.model.UserModel;
 import com.epam.springshop.dto.ProductDto;
-import com.epam.springshop.dto.UserDto;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

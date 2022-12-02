@@ -1,7 +1,6 @@
 package com.epam.springshop.service;
 
 import com.epam.springshop.dto.OrderDto;
-import com.epam.springshop.dto.OrderItemDto;
 
 import java.util.List;
 

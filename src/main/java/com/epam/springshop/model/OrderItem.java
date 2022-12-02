@@ -1,9 +1,8 @@
 package com.epam.springshop.model;
-import com.epam.springshop.model.enums.StatusEnum;
-
-import javax.persistence.*;
 
 import lombok.*;
+
+import javax.persistence.*;
 
 @Builder
 @Getter

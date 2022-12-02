@@ -11,12 +11,7 @@ import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandl
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.hateoas.client.LinkDiscoverer;
-import org.springframework.hateoas.client.LinkDiscoverers;
-import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
-import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;

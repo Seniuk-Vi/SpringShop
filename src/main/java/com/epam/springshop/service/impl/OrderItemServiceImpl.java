@@ -6,8 +6,6 @@ import com.epam.springshop.exceptions.EntityIllegalArgumentException;
 import com.epam.springshop.exceptions.impl.OrderItemNotFoundException;
 import com.epam.springshop.exceptions.impl.OrderNotFoundException;
 import com.epam.springshop.mapper.OrderItemsMapper;
-import com.epam.springshop.mapper.OrderMapper;
-import com.epam.springshop.model.Order;
 import com.epam.springshop.model.OrderItem;
 import com.epam.springshop.repository.OrderItemRepoImpl;
 import com.epam.springshop.service.OrderItemService;

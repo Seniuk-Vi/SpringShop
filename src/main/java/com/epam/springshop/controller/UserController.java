@@ -7,8 +7,9 @@ import com.epam.springshop.dto.UserDto;
 import com.epam.springshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class UserController implements UserApi {
 
     private final UserService userService;
-    private final UserAssembler userAssembler;
+    private final UserAssembler userAssembler ;
 
     @Override
     public UserModel createUser(UserDto userDto) {
@@ -65,7 +66,7 @@ public class UserController implements UserApi {
     public ResponseEntity<Void> deleteUser(long userId) {
         log.info(String.format("%s : method ==> deleteUser(%s)", this.getClass().getName(), userId));
         userService.deleteUser(userId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).build();
     }
 
 }

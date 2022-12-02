@@ -1,11 +1,10 @@
 package com.epam.springshop.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import com.epam.springshop.model.enums.RoleEnum;
 import lombok.*;
 
-
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 

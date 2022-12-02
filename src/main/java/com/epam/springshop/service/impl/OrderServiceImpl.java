@@ -14,7 +14,6 @@ import com.epam.springshop.model.Order;
 import com.epam.springshop.model.OrderItem;
 import com.epam.springshop.model.enums.StatusEnum;
 import com.epam.springshop.repository.OrderRepoImpl;
-import com.epam.springshop.repository.ProductRepoImpl;
 import com.epam.springshop.service.OrderItemService;
 import com.epam.springshop.service.OrderService;
 import com.epam.springshop.service.ProductService;

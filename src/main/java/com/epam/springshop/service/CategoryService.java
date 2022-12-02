@@ -1,7 +1,6 @@
 package com.epam.springshop.service;
 
 import com.epam.springshop.dto.CategoryDto;
-import com.epam.springshop.dto.RoleDto;
 
 import java.util.List;
 
