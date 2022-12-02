@@ -68,7 +68,7 @@ class UserRepoImplTest {
     @Test
     void existsByPhoneNumber() {
         //given
-        User user = getUser();
+
         //when
         boolean existsByEmail = userRepo.existsByPhoneNumber(USER_PHONE_NUMBER);
         //then

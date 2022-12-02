@@ -1,5 +1,6 @@
 package com.epam.springshop.controller;
 
+import com.epam.springshop.exceptions.EntityIllegalArgumentException;
 import com.epam.springshop.exceptions.NotFoundException;
 import com.epam.springshop.exceptions.ServiceException;
 import com.epam.springshop.model.Error;
@@ -27,6 +28,12 @@ public class ErrorHandlingController {
                 map(err->
                         new Error(err.getDefaultMessage(),ErrorType.VALIDATION_ERROR_TYPE,LocalDateTime.now()))
                 .collect(Collectors.toList());
+    }
+    @ExceptionHandler(EntityIllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Error handleEntityIllegalArgumentException(EntityIllegalArgumentException ex, HandlerMethod hm){
+        log.error("handleEntityIllegalArgumentException: message: {}, method: {}",ex.getMessage(),ex);
+        return new Error(ex.getMessage(),ex.getErrorType(), LocalDateTime.now());
     }
 
     @ExceptionHandler(ServiceException.class)
