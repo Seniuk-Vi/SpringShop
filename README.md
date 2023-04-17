@@ -1,6 +1,22 @@
 # SpringShop
 Technologies: Java, Spring, PostgreSQL
 
+During Epam Java Lab created own Spring Boot application:
+* Created RESTful service
+* Userd DTO classes with validation (ConstraintValidator)
+* Used mapping tool (MapStruct)
+* Implemented error handling controller (RestControllerAdvice)
+* Configured Spring Boot Actuator
+* Implemented Swagger
+* Created RestTemplate controller that makes REST calls to main service endpoints and parses response
+* Integrated Spring Data JPA
+* Implemented mappings OneToOne, ManyToOne
+* Used @Query and pageable,sortable reads from database
+* Added Transactions using declarative approach
+* Covered all business logic with unit tests (JUnit, Mockito)
+* Used MockMVC to cover API layer
+* Used PostreSQL
+
 Інтернет магазин
 
 Магазин має каталог Товарів, для якого необхідно реалізувати можливість:
